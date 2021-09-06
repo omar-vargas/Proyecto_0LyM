@@ -9,6 +9,7 @@ public class Proyecto_0 {
 
 	
 	static ArrayList<String >po = new ArrayList<>();
+	static ArrayList<String >lo = new ArrayList<>();
 	static ArrayList<String >complex = new ArrayList<>();
 	private static String[] li; 
 	static boolean valido;
@@ -28,6 +29,16 @@ public class Proyecto_0 {
     		 verificarFacil(li);
     		 i++;
     		 
+    	 }else if(li[i].equals("LOOK")){
+    		 verificarFacil2(li);
+    		 i++;
+    	 }else if(li[i].equals("CHECK")){
+    		 verificarFacil3(li);
+    		 i++;
+    	 }
+    	 else if(li[i].equals("NOP")){
+    		 verificarFacil4(li);
+    		 i++;
     	 }
     	 else 
     	 {
@@ -105,6 +116,63 @@ public class Proyecto_0 {
   		 		System.out.println("invalido");
   		 	}
 	  }
+	  
+	  
+	  
+	  public static void verificarFacil2(String[]in) 
+	  {
+		  System.out.println("entre al facil");
+		  try{
+  		 	if(in[1].equals("N") ||in[1].equals("E") || in[1].equals("W" )||in[1].equals("S")){
+  		 		
+  		 		System.out.println("valido");
+  		 	}else{
+  		 		System.out.println("invalido");
+  		 	}
+  		 	}catch(Exception e){
+  		 		System.out.println("invalido");
+  		 	}
+	  }
+	  
+	  
+	  public static void verificarFacil3(String[]in) 
+	  {
+		  System.out.println("entre al facil");
+		  try{
+  		 	if( in[1].equals("C") || in[1].equals("B") ){
+  		 		if( Integer.parseInt(in[2])>=0  ){
+  		 			
+  		 			System.out.println("valido");
+  		 		}else{
+  		 			System.out.println("invalido");
+  		 		}
+  		 		
+  		 		
+  		 	}else{
+  		 		System.out.println("invalido");
+  		 	}
+  		 	}catch(Exception e){
+  		 		System.out.println("invalido");
+  		 	}
+	  }
+	  
+	  
+	  
+	  public static void verificarFacil4(String[]in) 
+	  {
+		  System.out.println("entre al facil");
+		  try{
+  		 	if(in[0].equals("NOP")){
+  		 		
+  		 		System.out.println("valido");
+  		 	}else{
+  		 		System.out.println("invalido");
+  		 	}
+  		 	}catch(Exception e){
+  		 		System.out.println("invalido");
+  		 	}
+	  }
+	  
 	  
 	  public static void verificarComplejos( String[] in, BufferedReader br) throws IOException
 	  {
@@ -203,6 +271,7 @@ public class Proyecto_0 {
 	    	po.add("FREE");
 	    	po.add("PICK");
             po.add("POP");
+            lo.add("LOOK");
 	    	complex.add("(BLOCK");
 	    	complex.add("REPEAT");
 	    	complex.add("IF");
