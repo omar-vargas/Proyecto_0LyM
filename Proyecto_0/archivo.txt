@@ -1,2 +1,6 @@
-MOVE 
-8
+MOVE 4
+(BLOCK
+MOVE 23
+MOVE 24
+MOVE n
+)
