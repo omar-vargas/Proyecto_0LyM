@@ -6,6 +6,25 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Proyecto_0 {
+	
+  public static class fun{
+		  
+		  int contador;
+		  String nombre;
+		  
+		  public fun(String pnombre){
+			  nombre= pnombre;
+			 contador=0; 
+		  }
+		  
+		  public void sumar(){
+			  contador++;
+		  }
+		  public String setName(){
+			  return nombre;
+		  }
+	  
+	  }
 
 	
 	static ArrayList<String >po = new ArrayList<>();
@@ -14,8 +33,9 @@ public class Proyecto_0 {
 	private static String[] li; 
 	static boolean valido;
 	static boolean validadaLinea;
-	
-	
+	static ArrayList<String >variableslocales = new ArrayList<>();
+	static ArrayList<String >variablesglobales = new ArrayList<>();
+	static  ArrayList<fun >variablesfunciones = new ArrayList<>();
 	
 	public static void verificar( String linea, BufferedReader br ) throws IOException
 	{
@@ -23,7 +43,7 @@ public class Proyecto_0 {
 		 li = linea.split(" ");	
    
      for(int i=0;!validadaLinea && i<li.length;i++ ){
-    	 System.out.println(li[i]);
+
     	 if(po.contains(li[i])){
     		
     		 verificarFacil(li);
@@ -39,6 +59,14 @@ public class Proyecto_0 {
     	 else if(li[i].equals("NOP")){
     		 verificarFacil4(li);
     		 i++;
+    	 }
+    	 else if(li[i].length()>1){
+    		 for (int j = 0; j < variablesfunciones.size(); j++) {
+				if(variablesfunciones.get(j).setName().equals(li[i])){
+					verificarFacil5(li);
+				}
+			}
+    		 
     	 }
     	 else 
     	 {
@@ -104,16 +132,37 @@ public class Proyecto_0 {
 	  
 	  public static void verificarFacil(String[]in) 
 	  {
-		  System.out.println("entre al facil");
+		 
 		  try{
   		 	if( Integer.parseInt(in[1])>=0  ){
   		 		
-  		 		System.out.println("valido");
+  		 		
   		 	}else{
-  		 		System.out.println("invalido");
+  		 		boolean encontro= false;
+  		 		for(int i=0; i<variableslocales.size();i++){
+  		 			if(variableslocales.get(i).equals(in[1])){
+  		 				encontro=true;
+  		 			}
+  		 			}
+  		 		for(int i=0; i<variablesglobales.size()&& !encontro;i++){
+  		 			if(variablesglobales.get(i).equals(in[1])){
+  		 				encontro=true;
+  		 				
+  		 			}
+  		 			if(encontro){
+  		 				
+  		 			}else{
+  		 				
+  		 				valido= false;
+  		 			}
+  		 			
+  		 		}
+  		 		
+  		 		
   		 	}
   		 	}catch(Exception e){
-  		 		System.out.println("invalido");
+  		 		valido= false;
+  		 		
   		 	}
 	  }
 	  
@@ -121,38 +170,43 @@ public class Proyecto_0 {
 	  
 	  public static void verificarFacil2(String[]in) 
 	  {
-		  System.out.println("entre al facil");
+		
 		  try{
   		 	if(in[1].equals("N") ||in[1].equals("E") || in[1].equals("W" )||in[1].equals("S")){
   		 		
-  		 		System.out.println("valido");
+  		 		
   		 	}else{
-  		 		System.out.println("invalido");
+  		 	
+  		 		valido= false;
   		 	}
   		 	}catch(Exception e){
-  		 		System.out.println("invalido");
+  		 		valido= false;
+  		 		
   		 	}
 	  }
 	  
 	  
 	  public static void verificarFacil3(String[]in) 
 	  {
-		  System.out.println("entre al facil");
+		  
 		  try{
   		 	if( in[1].equals("C") || in[1].equals("B") ){
   		 		if( Integer.parseInt(in[2])>=0  ){
   		 			
-  		 			System.out.println("valido");
+  		 		
   		 		}else{
-  		 			System.out.println("invalido");
+  		 			
+  		 			valido= false;
   		 		}
   		 		
   		 		
   		 	}else{
-  		 		System.out.println("invalido");
+  		 		
+  		 		valido= false;
   		 	}
   		 	}catch(Exception e){
-  		 		System.out.println("invalido");
+  		 		
+  		 		valido= false;
   		 	}
 	  }
 	  
@@ -160,18 +214,48 @@ public class Proyecto_0 {
 	  
 	  public static void verificarFacil4(String[]in) 
 	  {
-		  System.out.println("entre al facil");
+		 
 		  try{
   		 	if(in[0].equals("NOP")){
   		 		
-  		 		System.out.println("valido");
+  		 		
   		 	}else{
-  		 		System.out.println("invalido");
+  		 		
+  		 		valido= false;
   		 	}
   		 	}catch(Exception e){
-  		 		System.out.println("invalido");
+  		 		
+  		 		valido= false;
   		 	}
 	  }
+	  
+	  public static void verificarFacil5(String[]in) 
+	  {
+	
+		  try{
+			  fun ver=null;
+			  boolean encontro= false;
+			  for(int i=0;i <variablesfunciones.size();i++){
+				  if(variablesfunciones.get(i).setName().equals(in[0])){
+					  encontro=true;
+					  ver= variablesfunciones.get(i);
+					  break;
+				  }
+			  }
+			  if(!encontro){
+				  	valido= false;
+			  }
+			  else if(!(in.length-1==ver.contador)){
+					valido= false;
+			  }
+  		 
+  		 	}catch(Exception e){
+  		 	
+  		 	}
+	  }
+	  
+	  
+	  
 	  
 	  
 	  public static void verificarComplejos( String[] in, BufferedReader br) throws IOException
@@ -180,11 +264,11 @@ public class Proyecto_0 {
 	  	if(in[0].equals("(BLOCK"))
 	  	{
 	  		boolean encontreFinal = false;
-	  		System.out.println("valide el block");
+	  
 	  		br.mark(0);
 	  		for (int i = 0;br.lines()!=null &&  i < 100000 && !encontreFinal; i++) {
 	  			String lecturaFinalBlock = br.readLine();
-	  			System.out.println(lecturaFinalBlock);
+	  
 				if(lecturaFinalBlock!= null && lecturaFinalBlock.equals(")"))
 				{
 					encontreFinal = true;
@@ -193,7 +277,7 @@ public class Proyecto_0 {
 	  		if(!encontreFinal)
 	  		{
 	  			valido = false;
-	  		    System.out.println("no encontro final del block");
+	  	
 	  		}
 	  		br.reset();
 	  	}
@@ -202,11 +286,11 @@ public class Proyecto_0 {
 	  		
 	  		if(Integer.parseInt(in[1])>=0)
 	  		{
-	  			System.out.println("el siguiente del repeat si es un numero");
+	  			
 	  		}
 	  		if(in[2].equals("["))
 	  		{
-	  			System.out.println("seguido del numero va el  [");
+	  		
 	  		}
 	  		else
 	  		{
@@ -215,7 +299,7 @@ public class Proyecto_0 {
 	  		if(valido)
 	  		{
 	  			boolean encontreFinal = false;
-		  		System.out.println("valide el REPEAT");
+		  	
 		  		br.mark(0);
 		  		for (int i = 0;   i < 100000 && !encontreFinal; i++) {
 					if(br.readLine().equals("]"))
@@ -226,7 +310,7 @@ public class Proyecto_0 {
 		  		if(!encontreFinal)
 		  		{
 		  			valido = false;
-		  		    System.out.println("invalido");
+		  		   
 		  		}
 		  		br.reset();
 		  		validadaLinea=true;
@@ -235,9 +319,15 @@ public class Proyecto_0 {
 	  	}
 	  	else if(in[0].equals("IF"))
 	  	{
+	  		if(in[1].equals("BLOCKEDP")||in[1].equals("!BLOCKEDP")){
+	  			
+	  			
+	  		}else{
+	  		  valido=false;	
+	  		}
 	  		if(in[2].equals("["))
 	  		{
-	  			System.out.println("seguido del booleano va el  [ en el IF");
+	  			
 	  		}
 	  		else
 	  		{
@@ -246,23 +336,83 @@ public class Proyecto_0 {
 	  	}
 	  	else if(in[0].equals("DEFINE"))
 	  	{
-	  		if(in[1].equals("["))
+	  		if(in[1]!=null)
 	  		{
-	  			System.out.println("seguido del booleano va el  [ en el IF");
+	  			variableslocales.add(in[1]);
 	  		}
 	  		if(Integer.parseInt(in[2])>=0)
 	  		{
-	  			System.out.println("el siguiente del define  si es un numero");
+	  		
 	  		}
 	  		else
 	  		{
 	  			valido=false;
 	  		}
 	  	}
-	  }
+	  	else if( in[0].equals("TO")    ){
+	  		String pnombre = in[1];
+	  		fun pr = new fun(pnombre);
+
+	  		for(int i=2;i< in.length;i++ ){
+	  			if(in[i].contains(":")){
+	  				
+	  				pr.sumar();
+	  				
+	  			}else{
+	  				valido=false;
+	  			}
+	  			
+	  			
+	  		}
+	  		boolean encontreFinal = false;
+	  		boolean encontreInicio = false;
+	  	
+	  		br.mark(0);
+	  		
+	  		for (int i = 0;br.lines()!=null &&  i < 100000 && !encontreInicio; i++) {
+	  			String lecturaInicialBlock = br.readLine();
+	  			if(lecturaInicialBlock== null )
+				{
+					
+				}
+	  			else if( lecturaInicialBlock.equals("OUTPUT"))
+				{
+					encontreFinal = true;
+				}
+	  		
+	  			
+	  			
+	  		}
+	  		if(!encontreFinal)
+	  		{
+	  			valido = false;
+	  		  
+	  		}
+	  		
+	  		for (int i = 0;br.lines()!=null &&  i < 100000 && !encontreFinal; i++) {
+	  			String lecturaFinalBlock = br.readLine();
+	  			
+				if(lecturaFinalBlock!= null && lecturaFinalBlock.equals("END"))
+				{
+					encontreFinal = true;
+				}
+			}
+	  		if(!encontreFinal)
+	  		{
+	  			valido = false;
+	  		   
+	  		}
+	  		br.reset();
+	  	}
+	  		
+	  	}
+	  	
+	  	
+
+	  
 	  
 	  public static void main(String [] arg) {
-		     
+		    String val= "yes" ; 
 	      	po.add("MOVE");
 	    	po.add("RIGHT");
 	    	po.add("ROTATE");
@@ -278,9 +428,14 @@ public class Proyecto_0 {
 	    	complex.add("DEFINE");
 	    	valido = true;
 	    	verificarTodo();
-	    	
+	    	if(!valido){
+	    		val= "no";
+	    	}
+	    	System.out.println( val );
 	    	
 	    	
 	   
 	   }
+	  
+	
 }
